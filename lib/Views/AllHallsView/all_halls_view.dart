@@ -38,12 +38,11 @@ class AllHallsView extends StatelessWidget {
 
       floatingActionButtonLocation: .centerFloat,
       body: SafeArea(
-
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
               backgroundColor: AppTheme.whiteColor,
-        
+
               floating: true,
               centerTitle: true,
               title: Padding(
@@ -76,76 +75,72 @@ class AllHallsView extends StatelessWidget {
                 ),
               ),
             ),
-        
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: AppTheme.screenPadding,
-        
-                child: Text(
-                  AppConstants.dateText,
-                  style: AppTheme.mediumTextStyleBold(textColor: AppTheme.darkBlueTextColor),
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(child: AppTheme.verticalSpaceSmall),
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: 45,
-                child: Consumer(
-                  builder: (context, dateRef, _) {
-                    var selectedDateIndex = dateRef.watch(
-                      AllHallsViewProviders.allHallsViewProviders.select((model) => model.selectedDateIndex),
-                    );
-                    return ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return DateContainer(
-                          label: '${index + 1} March',
-                          isSelected: index == selectedDateIndex,
-                          onSelect: () {
-                            dateRef.read(AllHallsViewProviders.allHallsViewProviders.notifier).setSelectedDate(index);
-                          },
-                        );
-                      },
-                      separatorBuilder: (_, __) => AppTheme.horizontalSpaceSmall,
-                    );
-                  },
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(child: AppTheme.verticalSpaceMedium),
-        
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: AppTheme.screenHeight(context) / 2,
-                child: Consumer(
-                  builder: (context, dateRef, _) {
-                    var selectedHallIndex = dateRef.watch(
-                      AllHallsViewProviders.allHallsViewProviders.select((model) => model.selectedHallIndex),
-                    );
-                    return ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return HallContainer(
-                          label: '${index + 1} March',
-                          isSelected: index == selectedHallIndex,
-                          onSelect: () {
-                            dateRef.read(AllHallsViewProviders.allHallsViewProviders.notifier).setSelectedHall(index);
-                          },
-                        );
-                      },
-                      separatorBuilder: (_, __) => AppTheme.horizontalSpaceSmall,
-                    );
-                  },
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(child: AppTheme.verticalSpaceMedium),
 
+            SliverList.list(
+              children: [
+                Padding(
+                  padding: AppTheme.screenPadding,
+
+                  child: Text(
+                    AppConstants.dateText,
+                    style: AppTheme.mediumTextStyleBold(textColor: AppTheme.darkBlueTextColor),
+                  ),
+                ),
+                AppTheme.verticalSpaceSmall,
+                SizedBox(
+                  height: 45,
+                  child: Consumer(
+                    builder: (context, dateRef, _) {
+                      var selectedDateIndex = dateRef.watch(
+                        AllHallsViewProviders.allHallsViewProviders.select((model) => model.selectedDateIndex),
+                      );
+                      return ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        itemCount: 10,
+                        itemBuilder: (context, index) {
+                          return DateContainer(
+                            label: '${index + 1} March',
+                            isSelected: index == selectedDateIndex,
+                            onSelect: () {
+                              dateRef.read(AllHallsViewProviders.allHallsViewProviders.notifier).setSelectedDate(index);
+                            },
+                          );
+                        },
+                        separatorBuilder: (_, __) => AppTheme.horizontalSpaceSmall,
+                      );
+                    },
+                  ),
+                ),
+                AppTheme.verticalSpaceMedium,
+                SizedBox(
+                  height: AppTheme.screenHeight(context) / 2,
+                  child: Consumer(
+                    builder: (context, dateRef, _) {
+                      var selectedHallIndex = dateRef.watch(
+                        AllHallsViewProviders.allHallsViewProviders.select((model) => model.selectedHallIndex),
+                      );
+                      return ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        itemCount: 10,
+                        itemBuilder: (context, index) {
+                          return HallContainer(
+                            label: '${index + 1} March',
+                            isSelected: index == selectedHallIndex,
+                            onSelect: () {
+                              dateRef.read(AllHallsViewProviders.allHallsViewProviders.notifier).setSelectedHall(index);
+                            },
+                          );
+                        },
+                        separatorBuilder: (_, __) => AppTheme.horizontalSpaceSmall,
+                      );
+                    },
+                  ),
+                ),
+                AppTheme.verticalSpaceMedium,
+              ],
+            ),
           ],
         ),
       ),

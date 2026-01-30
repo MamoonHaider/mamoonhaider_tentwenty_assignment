@@ -124,7 +124,10 @@ class MovieDetailsView extends ConsumerWidget {
                       child: Column(
                         crossAxisAlignment: .start,
                         children: [
-                          Text(AppConstants.genresText, style: AppTheme.mediumTextStyleBold(textColor: AppTheme.darkBlueTextColor)),
+                          Text(
+                            AppConstants.genresText,
+                            style: AppTheme.mediumTextStyleBold(textColor: AppTheme.darkBlueTextColor),
+                          ),
                           Wrap(
                             spacing: 4,
                             runSpacing: 0,
@@ -139,7 +142,10 @@ class MovieDetailsView extends ConsumerWidget {
                           Divider(color: AppTheme.lightGreyColor),
                           AppTheme.verticalSpaceSmall,
                           // Overview
-                          Text(AppConstants.overviewText, style: AppTheme.mediumTextStyleBold(textColor: AppTheme.darkBlueTextColor)),
+                          Text(
+                            AppConstants.overviewText,
+                            style: AppTheme.mediumTextStyleBold(textColor: AppTheme.darkBlueTextColor),
+                          ),
                           AppTheme.verticalSpaceSmall,
                           Text(
                             movieDetail.overview,
@@ -262,7 +268,10 @@ class MovieDetailsView extends ConsumerWidget {
                       crossAxisAlignment: .start,
                       children: [
                         // Genres
-                        Text(AppConstants.genresText, style: AppTheme.mediumTextStyleBold(textColor: AppTheme.darkBlueTextColor)),
+                        Text(
+                          AppConstants.genresText,
+                          style: AppTheme.mediumTextStyleBold(textColor: AppTheme.darkBlueTextColor),
+                        ),
                         AppTheme.verticalSpaceSmall,
                         Wrap(
                           spacing: 4,
@@ -278,7 +287,10 @@ class MovieDetailsView extends ConsumerWidget {
                         Divider(color: AppTheme.lightGreyColor),
                         AppTheme.verticalSpaceSmall,
                         // Overview
-                        Text(AppConstants.overviewText, style: AppTheme.mediumTextStyleBold(textColor: AppTheme.darkBlueTextColor)),
+                        Text(
+                          AppConstants.overviewText,
+                          style: AppTheme.mediumTextStyleBold(textColor: AppTheme.darkBlueTextColor),
+                        ),
                         AppTheme.verticalSpaceSmall,
                         Text(
                           movieDetail.overview,
@@ -294,7 +306,10 @@ class MovieDetailsView extends ConsumerWidget {
         },
         loading: () => MovieDetailsShimmer(), // Show shimmer
         error: (error, stacktrace) => Center(
-          child: Text(AppConstants.somethingWentWrongText, style: AppTheme.largeTextStyle(textColor: AppTheme.blackColor)),
+          child: Text(
+            AppConstants.somethingWentWrongText,
+            style: AppTheme.largeTextStyle(textColor: AppTheme.blackColor),
+          ),
         ),
       ),
     );

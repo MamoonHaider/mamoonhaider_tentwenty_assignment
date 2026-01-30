@@ -104,60 +104,56 @@ class HallView extends StatelessWidget {
                 ),
               ),
             ),
+            SliverList.list(
+              children: [
+                Padding(
+                  padding: AppTheme.screenPadding,
 
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: AppTheme.screenPadding,
-
-                child: Text(
-                  AppConstants.dateText,
-                  style: AppTheme.mediumTextStyleBold(textColor: AppTheme.darkBlueTextColor),
+                  child: Text(
+                    AppConstants.dateText,
+                    style: AppTheme.mediumTextStyleBold(textColor: AppTheme.darkBlueTextColor),
+                  ),
                 ),
-              ),
-            ),
-            SliverToBoxAdapter(child: AppTheme.verticalSpaceSmall),
+                AppTheme.verticalSpaceSmall,
 
-            SliverToBoxAdapter(
-              child: Center(
-                child: Consumer(
-                  builder: (context, seatsRef, _) {
-                    var selectedSeats = seatsRef.watch(
-                      HallViewProviders.hallViewProviders.select((model) => model.selectedSeats),
-                    );
+                Center(
+                  child: Consumer(
+                    builder: (context, seatsRef, _) {
+                      var selectedSeats = seatsRef.watch(
+                        HallViewProviders.hallViewProviders.select((model) => model.selectedSeats),
+                      );
 
-                    return CinemaHallView(
-                      columns: [5, 5, 6, 8, 10, 10, 10, 8, 6, 5, 5],
-                      selectedSeats: selectedSeats,
-                      vipSeats: ['1-0', '3-2'],
-                      regularSeats: ['0-1', '0-2', '1-1'],
-                      unavailableSeats: ['4-5', '5-5'],
-                      iconSize: 16,
-                      showNumbers: true,
-                      onSeatTap: (seatId) {
-                        seatsRef.read(HallViewProviders.hallViewProviders.notifier).toggleSeat(seatId);
-                      },
-                    );
-                  },
+                      return CinemaHallView(
+                        columns: [5, 5, 6, 8, 10, 10, 10, 8, 6, 5, 5],
+                        selectedSeats: selectedSeats,
+                        vipSeats: ['1-0', '3-2'],
+                        regularSeats: ['0-1', '0-2', '1-1'],
+                        unavailableSeats: ['4-5', '5-5'],
+                        iconSize: 16,
+                        showNumbers: true,
+                        onSeatTap: (seatId) {
+                          seatsRef.read(HallViewProviders.hallViewProviders.notifier).toggleSeat(seatId);
+                        },
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ),
-            SliverToBoxAdapter(child: AppTheme.verticalSpaceSmall),
-
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Wrap(
-                  alignment: .center,
-                  spacing: 12,
-                  runSpacing: 8,
-                  children: const [
-                    SeatInfoChip(color: AppTheme.goldColor, label: AppConstants.selectedSeatText),
-                    SeatInfoChip(color: AppTheme.violetColor, label: AppConstants.vipSeatText),
-                    SeatInfoChip(color: AppTheme.skyBlueColor, label: AppConstants.regularSeatText),
-                    SeatInfoChip(color: AppTheme.lightGreyTextColor, label: AppConstants.notAvailableSeatText),
-                  ],
+                AppTheme.verticalSpaceSmall,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Wrap(
+                    alignment: .center,
+                    spacing: 12,
+                    runSpacing: 8,
+                    children: const [
+                      SeatInfoChip(color: AppTheme.goldColor, label: AppConstants.selectedSeatText),
+                      SeatInfoChip(color: AppTheme.violetColor, label: AppConstants.vipSeatText),
+                      SeatInfoChip(color: AppTheme.skyBlueColor, label: AppConstants.regularSeatText),
+                      SeatInfoChip(color: AppTheme.lightGreyTextColor, label: AppConstants.notAvailableSeatText),
+                    ],
+                  ),
                 ),
-              ),
+              ],
             ),
 
             SliverToBoxAdapter(child: AppTheme.verticalSpaceExtraLarge),
