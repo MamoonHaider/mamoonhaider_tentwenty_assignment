@@ -49,12 +49,12 @@ class WatchView extends ConsumerWidget {
                       backgroundColor: AppTheme.whiteColor,
                       leading: (isSearchSubmitted)
                           ? IconButton(
-                              onPressed: () {
-                                viewModel.setIsSearchSubmitted(false);
-                              },
+                        onPressed: () {
+                          viewModel.setIsSearchSubmitted(false);
+                        },
 
-                              icon: Icon(Icons.arrow_back_ios, color: AppTheme.blackColor),
-                            )
+                        icon: Icon(Icons.arrow_back_ios, color: AppTheme.blackColor),
+                      )
                           : null,
                       titleSpacing: 0,
                       title: AnimatedSwitcher(
@@ -73,52 +73,52 @@ class WatchView extends ConsumerWidget {
 
                         child: isSearchSubmitted
                             ? Text(
-                                '${totalMovies } ${AppConstants.resultFoundText } ',
-                                key: const ValueKey('title'),
-                                style: AppTheme.mediumTextStyleBold(
-                                  textColor: AppTheme.blackColor,
-                                  fontFamily: AppTheme.appFontFamily,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              )
+                          '${totalMovies} ${AppConstants.resultFoundText} ',
+                          key: const ValueKey('title'),
+                          style: AppTheme.mediumTextStyleBold(
+                            textColor: AppTheme.blackColor,
+                            fontFamily: AppTheme.appFontFamily,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        )
                             : isSearchBarExpanded
                             ? Padding(
-                                padding: AppTheme.screenPadding,
-                                key: const ValueKey('searchBar'),
+                          padding: AppTheme.screenPadding,
+                          key: const ValueKey('searchBar'),
 
-                                child: ExpandableSearchBar(
-                                  isExpanded: true,
-                                  controller: viewModel.searchController,
-                                  toggleExpansion: () => viewModel.toggleSearchBarExpansion(),
-                                  onChanged: viewModel.onSearchChanged,
-                                  onSubmitted: (_) {
-                                    viewModel.searchMovies(autoSubmit: true);
-                                    viewModel.setIsSearchSubmitted(true);
-                                  },
-                                ),
-                              )
+                          child: ExpandableSearchBar(
+                            isExpanded: true,
+                            controller: viewModel.searchController,
+                            toggleExpansion: () => viewModel.toggleSearchBarExpansion(),
+                            onChanged: viewModel.onSearchChanged,
+                            onSubmitted: (_) {
+                              viewModel.searchMovies(autoSubmit: true);
+                              viewModel.setIsSearchSubmitted(true);
+                            },
+                          ),
+                        )
                             : Padding(
-                                padding: AppTheme.screenPadding,
-                                key: const ValueKey('title'),
+                          padding: AppTheme.screenPadding,
+                          key: const ValueKey('title'),
 
-                                child: Text(
-                                  AppConstants.watchText,
-                                  style: AppTheme.mediumTextStyleBold(
-                                    textColor: AppTheme.blackColor,
-                                    fontFamily: AppTheme.appFontFamily,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
+                          child: Text(
+                            AppConstants.watchText,
+                            style: AppTheme.mediumTextStyleBold(
+                              textColor: AppTheme.blackColor,
+                              fontFamily: AppTheme.appFontFamily,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
                       ),
                       actions: isSearchBarExpanded
                           ? []
                           : [
-                              IconButton(
-                                icon: const Icon(Icons.search),
-                                onPressed: () => viewModel.toggleSearchBarExpansion(),
-                              ),
-                            ],
+                        IconButton(
+                          icon: const Icon(Icons.search),
+                          onPressed: () => viewModel.toggleSearchBarExpansion(),
+                        ),
+                      ],
                     );
                   },
                 ),
@@ -128,25 +128,36 @@ class WatchView extends ConsumerWidget {
                     builder: (context, searchTitleRef, _) {
                       final isSearching = ref.watch(provider.select((model) => model.isSearching));
                       final isSearchSubmitted = ref.watch(provider.select((model) => model.isSearchSubmitted));
+                      var movies = ref.watch(WatchViewProviders.watchViewProviders.select((model) => model.movies));
 
                       return Padding(
                         padding: AppTheme.screenPadding,
                         child: (isSearching && !isSearchSubmitted)
                             ? Column(
-                                crossAxisAlignment: .start,
-                                children: [
-                                  Text(
-                                    AppConstants.topResultsText,
-                                    style: AppTheme.mediumTextStyleBold(
-                                      textColor: AppTheme.blackColor,
-                                      fontFamily: AppTheme.appFontFamily,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  Divider(color: AppTheme.lightGreyColor),
-                                ],
-                              )
-                            : SizedBox.shrink(),
+                          crossAxisAlignment: .start,
+                          children: [
+                            (movies.isNotEmpty) ?
+                            Text(
+                              AppConstants.topResultsText,
+                              style: AppTheme.mediumTextStyleBold(
+                                textColor: AppTheme.blackColor,
+                                fontFamily: AppTheme.appFontFamily,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ):Text(
+                              AppConstants.noResultFound,
+                              style: AppTheme.mediumTextStyleBold(
+                                textColor: AppTheme.blackColor,
+                                fontFamily: AppTheme.appFontFamily,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Divider(color: AppTheme.lightGreyColor),
+                          ],
+                        )
+                            : SizedBox.shrink(
+                        )
+                        ,
                       );
                     },
                   ),
@@ -160,45 +171,45 @@ class WatchView extends ConsumerWidget {
                     if (model.movies.isNotEmpty) {
                       return !model.isSearchBarExpanded
                           ? SliverPadding(
-                              padding: AppTheme.screenPadding,
-                              sliver: SliverList.separated(
-                                itemCount: model.movies.length,
-                                itemBuilder: (context, index) {
-                                  return MovieContainer(movie: model.movies[index]);
-                                },
-                                separatorBuilder: (_, __) => AppTheme.verticalSpaceRegular,
-                              ),
-                            )
+                        padding: AppTheme.screenPadding,
+                        sliver: SliverList.separated(
+                          itemCount: model.movies.length,
+                          itemBuilder: (context, index) {
+                            return MovieContainer(movie: model.movies[index]);
+                          },
+                          separatorBuilder: (_, __) => AppTheme.verticalSpaceRegular,
+                        ),
+                      )
                           : viewModel.searchController.text.isEmpty
                           ? SliverPadding(
-                              padding: AppTheme.screenPadding,
-                              sliver: SliverGrid.builder(
-                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 8,
-                                  mainAxisExtent: 100,
-                                  mainAxisSpacing: 8,
-                                ),
-                                itemCount: model.movies.length,
-                                itemBuilder: (context, index) {
-                                  return SearchedMovieContainer(movie: model.movies[index]);
-                                },
-                              ),
-                            )
+                        padding: AppTheme.screenPadding,
+                        sliver: SliverGrid.builder(
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 8,
+                            mainAxisExtent: 100,
+                            mainAxisSpacing: 8,
+                          ),
+                          itemCount: model.movies.length,
+                          itemBuilder: (context, index) {
+                            return SearchedMovieContainer(movie: model.movies[index]);
+                          },
+                        ),
+                      )
                           : SliverPadding(
-                              padding: AppTheme.screenPadding,
+                        padding: AppTheme.screenPadding,
 
-                              sliver: SliverList.separated(
-                                itemCount: model.movies.length,
+                        sliver: SliverList.separated(
+                          itemCount: model.movies.length,
 
-                                itemBuilder: (context, index) {
-                                  return SearchedMovieTile(movie: model.movies[index]);
-                                },
-                                separatorBuilder: (BuildContext context, int index) {
-                                  return AppTheme.verticalSpaceSmall;
-                                },
-                              ),
-                            );
+                          itemBuilder: (context, index) {
+                            return SearchedMovieTile(movie: model.movies[index]);
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return AppTheme.verticalSpaceSmall;
+                          },
+                        ),
+                      );
                     } else if (model.isScreenLoading) {
                       return Consumer(
                         builder: (context, shimmerRef, _) {
@@ -213,40 +224,40 @@ class WatchView extends ConsumerWidget {
                                 padding: AppTheme.screenPadding,
                                 child: !isSearchBarExpanded
                                     ? SingleChildScrollView(
-                                        child: Column(
-                                          children: List.generate(10, (index) {
-                                            return Column(
-                                              children: [
-                                                MovieContainer(),
-                                                if (index < 9) AppTheme.verticalSpaceRegular,
-                                              ],
-                                            );
-                                          }),
-                                        ),
-                                      )
+                                  child: Column(
+                                    children: List.generate(10, (index) {
+                                      return Column(
+                                        children: [
+                                          MovieContainer(),
+                                          if (index < 9) AppTheme.verticalSpaceRegular,
+                                        ],
+                                      );
+                                    }),
+                                  ),
+                                )
                                     : viewModel.searchController.text.isEmpty
                                     ? GridView.builder(
-                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 2,
-                                          crossAxisSpacing: 8,
-                                          mainAxisExtent: 100,
-                                          mainAxisSpacing: 8,
-                                        ),
-                                        itemCount: 20,
-                                        itemBuilder: (context, index) {
-                                          return SearchedMovieContainer();
-                                        },
-                                      )
+                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 8,
+                                    mainAxisExtent: 100,
+                                    mainAxisSpacing: 8,
+                                  ),
+                                  itemCount: 20,
+                                  itemBuilder: (context, index) {
+                                    return SearchedMovieContainer();
+                                  },
+                                )
                                     : ListView.separated(
-                                        itemCount: 10,
+                                  itemCount: 10,
 
-                                        itemBuilder: (context, index) {
-                                          return SearchedMovieTile();
-                                        },
-                                        separatorBuilder: (BuildContext context, int index) {
-                                          return AppTheme.verticalSpaceSmall;
-                                        },
-                                      ),
+                                  itemBuilder: (context, index) {
+                                    return SearchedMovieTile();
+                                  },
+                                  separatorBuilder: (BuildContext context, int index) {
+                                    return AppTheme.verticalSpaceSmall;
+                                  },
+                                ),
                               ),
                             ),
                           );
@@ -257,7 +268,7 @@ class WatchView extends ConsumerWidget {
                         hasScrollBody: true,
                         child: Center(
                           child: Text(
-                            AppConstants.somethingWentWrongText,
+                            AppConstants.noMoviesFound,
                             style: AppTheme.largeTextStyle(textColor: AppTheme.blackColor),
                           ),
                         ),
@@ -272,11 +283,11 @@ class WatchView extends ConsumerWidget {
                   builder: (context, loaderRef, _) {
                     return loaderRef.watch(WatchViewProviders.watchViewProviders.select((model) => model.isLoadingMore))
                         ? const SliverToBoxAdapter(
-                            child: Padding(
-                              padding: EdgeInsets.all(16),
-                              child: Center(child: CustomAppLoader()),
-                            ),
-                          )
+                      child: Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Center(child: CustomAppLoader()),
+                      ),
+                    )
                         : SliverToBoxAdapter(child: SizedBox.shrink());
                   },
                 ),

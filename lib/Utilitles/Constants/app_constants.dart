@@ -24,4 +24,6 @@ class AppConstants {
   static const String totalPriceText = 'Total Price';
   static const String dateText = 'Date';
   static const String selectSeatsText = 'Select Seats';
+  static const String noMoviesFound = 'Sorry! No Movies Found';
+  static const String noResultFound = 'No Result';
 }
