@@ -31,15 +31,15 @@ class CinemaHallView extends StatelessWidget {
     final seatMargin = iconSize * 0.15;
 
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: showNumbers ? MainAxisAlignment.start : MainAxisAlignment.center,
+      crossAxisAlignment: .start,
+      mainAxisAlignment: .center,
       children: [
         if (showNumbers) ...[
           Padding(
             padding: EdgeInsets.only(left: iconSize * 0.6, top: iconSize * 3.5),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: .min,
+              mainAxisAlignment: .end,
               children: List.generate(maxRows, (rowIndex) {
                 return Container(
                   height: iconSize + seatMargin * 2,
@@ -78,8 +78,8 @@ class CinemaHallView extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: iconSize * 3.5),
               child: Row(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisSize: .min,
+                crossAxisAlignment: .end,
                 children: columns.asMap().entries.map((entry) {
                   final colIndex = entry.key;
                   final rowCount = entry.value;
@@ -87,8 +87,8 @@ class CinemaHallView extends StatelessWidget {
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: iconSize * 0.3),
                     child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisSize: .min,
+                      mainAxisAlignment: .end,
                       children: List.generate(rowCount, (rowIndex) {
                         final seatId = '$colIndex-$rowIndex';
                         Color seatColor = AppTheme.lightGreyTextColor;

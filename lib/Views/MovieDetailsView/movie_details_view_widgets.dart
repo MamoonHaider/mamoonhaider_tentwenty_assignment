@@ -35,7 +35,7 @@ class MovieDetailsShimmer extends StatelessWidget {
     return SingleChildScrollView(
       child: isLandscape
           ? Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 Expanded(
                   flex: 1,
@@ -83,7 +83,7 @@ class MovieDetailsShimmer extends StatelessWidget {
                           left: 20,
                           right: 20,
                           child: Column(
-                            mainAxisSize: MainAxisSize.min,
+                            mainAxisSize: .min,
                             children: [
                               Shimmer.fromColors(
                                 baseColor: AppTheme.shimmerGrey.withAlpha(100),
@@ -136,7 +136,7 @@ class MovieDetailsShimmer extends StatelessWidget {
                     padding: AppTheme.screenPadding,
 
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: .start,
 
                       children: [
                         AppTheme.verticalSpaceLarge,
@@ -186,7 +186,7 @@ class MovieDetailsShimmer extends StatelessWidget {
                         Padding(
                           padding: AppTheme.screenPadding,
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: .start,
                             children: List.generate(5, (index) {
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 6),
@@ -206,7 +206,7 @@ class MovieDetailsShimmer extends StatelessWidget {
               ],
             )
           : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 SizedBox(
                   height: screenHeight / 1.8,
@@ -353,7 +353,7 @@ class MovieDetailsShimmer extends StatelessWidget {
                   padding: AppTheme.screenPadding,
 
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: .start,
                     children: List.generate(5, (index) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 6),

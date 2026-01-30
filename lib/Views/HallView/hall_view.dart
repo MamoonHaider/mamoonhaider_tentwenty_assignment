@@ -24,7 +24,7 @@ class HallView extends StatelessWidget {
       floatingActionButton: Padding(
         padding: AppTheme.screenPadding,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: .center,
           children: [
             Flexible(
               flex: 1,
@@ -66,95 +66,103 @@ class HallView extends StatelessWidget {
         ),
       ),
       floatingActionButtonLocation: .centerFloat,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            backgroundColor: AppTheme.whiteColor,
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              backgroundColor: AppTheme.whiteColor,
 
-            floating: true,
-            centerTitle: true,
-            leading: IconButton(
-              onPressed: () {
-                if (context.canPop()) context.pop();
-              },
-              icon: Icon(Icons.arrow_back_ios, color: AppTheme.blackColor),
-            ),
-            title: Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: Text(
-                textAlign: TextAlign.center,
-                movie?.title ?? '',
-                style: AppTheme.largeTextStyle(textColor: AppTheme.blackColor, fontWeight: FontWeight.w500),
+              floating: true,
+              centerTitle: true,
+              leading: IconButton(
+                onPressed: () {
+                  if (context.canPop()) context.pop();
+                },
+                icon: Icon(Icons.arrow_back_ios, color: AppTheme.blackColor),
+              ),
+              title: Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Text(
+                  textAlign: TextAlign.center,
+                  movie?.title ?? '',
+                  style: AppTheme.largeTextStyle(textColor: AppTheme.blackColor, fontWeight: FontWeight.w500),
+                ),
+              ),
+              bottom: PreferredSize(
+                preferredSize: const Size.fromHeight(50),
+                child: Column(
+                  children: [
+                    Text(
+                      textAlign: TextAlign.center,
+                      movie?.releaseDate != null
+                          ? '${HelperFunctions.formatDateToMonthName(movie!.releaseDate)}  I  12:30 hall 1'
+                          : AppConstants.releaseDateNotConfirmedText,
+                      style: AppTheme.mediumTextStyle(textColor: AppTheme.skyBlueColor),
+                    ),
+                    AppTheme.verticalSpaceMedium,
+                  ],
+                ),
               ),
             ),
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(50),
-              child: Column(
-                children: [
-                  Text(
-                    textAlign: TextAlign.center,
-                    movie?.releaseDate != null
-                        ? '${HelperFunctions.formatDateToMonthName(movie!.releaseDate)}  I  12:30 hall 1'
-                        : AppConstants.releaseDateNotConfirmedText,
-                    style: AppTheme.mediumTextStyle(textColor: AppTheme.skyBlueColor),
-                  ),
-                  AppTheme.verticalSpaceMedium,
-                ],
+
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: AppTheme.screenPadding,
+
+                child: Text(
+                  AppConstants.dateText,
+                  style: AppTheme.mediumTextStyleBold(textColor: AppTheme.darkBlueTextColor),
+                ),
               ),
             ),
-          ),
+            SliverToBoxAdapter(child: AppTheme.verticalSpaceSmall),
 
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: AppTheme.screenPadding,
+            SliverToBoxAdapter(
+              child: Center(
+                child: Consumer(
+                  builder: (context, seatsRef, _) {
+                    var selectedSeats = seatsRef.watch(
+                      HallViewProviders.hallViewProviders.select((model) => model.selectedSeats),
+                    );
 
-              child: Text(AppConstants.dateText, style: AppTheme.mediumTextStyleBold(textColor: AppTheme.darkBlueTextColor)),
-            ),
-          ),
-          SliverToBoxAdapter(child: AppTheme.verticalSpaceSmall),
-
-          SliverToBoxAdapter(
-            child: Consumer(
-              builder: (context, seatsRef, _) {
-                var selectedSeats = seatsRef.watch(
-                  HallViewProviders.hallViewProviders.select((model) => model.selectedSeats),
-                );
-
-                return CinemaHallView(
-                  columns: [5, 5, 6, 8, 10, 10, 10, 8, 6, 5, 5],
-                  selectedSeats: selectedSeats,
-                  vipSeats: ['1-0', '3-2'],
-                  regularSeats: ['0-1', '0-2', '1-1'],
-                  unavailableSeats: ['4-5', '5-5'],
-                  iconSize: 16,
-                  showNumbers: true,
-                  onSeatTap: (seatId) {
-                    seatsRef.read(HallViewProviders.hallViewProviders.notifier).toggleSeat(seatId);
+                    return CinemaHallView(
+                      columns: [5, 5, 6, 8, 10, 10, 10, 8, 6, 5, 5],
+                      selectedSeats: selectedSeats,
+                      vipSeats: ['1-0', '3-2'],
+                      regularSeats: ['0-1', '0-2', '1-1'],
+                      unavailableSeats: ['4-5', '5-5'],
+                      iconSize: 16,
+                      showNumbers: true,
+                      onSeatTap: (seatId) {
+                        seatsRef.read(HallViewProviders.hallViewProviders.notifier).toggleSeat(seatId);
+                      },
+                    );
                   },
-                );
-              },
-            ),
-          ),
-          SliverToBoxAdapter(child: AppTheme.verticalSpaceSmall),
-
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Wrap(
-                spacing: 12,
-                runSpacing: 8,
-                children: const [
-                  SeatInfoChip(color: AppTheme.goldColor, label: AppConstants.selectedSeatText),
-                  SeatInfoChip(color:AppTheme.violetColor, label:AppConstants.vipSeatText),
-                  SeatInfoChip(color: AppTheme.skyBlueColor, label: AppConstants.regularSeatText),
-                  SeatInfoChip(color: AppTheme.lightGreyTextColor, label: AppConstants.notAvailableSeatText),
-                ],
+                ),
               ),
             ),
-          ),
+            SliverToBoxAdapter(child: AppTheme.verticalSpaceSmall),
 
-          SliverToBoxAdapter(child: AppTheme.verticalSpaceMedium),
-        ],
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Wrap(
+                  alignment: .center,
+                  spacing: 12,
+                  runSpacing: 8,
+                  children: const [
+                    SeatInfoChip(color: AppTheme.goldColor, label: AppConstants.selectedSeatText),
+                    SeatInfoChip(color: AppTheme.violetColor, label: AppConstants.vipSeatText),
+                    SeatInfoChip(color: AppTheme.skyBlueColor, label: AppConstants.regularSeatText),
+                    SeatInfoChip(color: AppTheme.lightGreyTextColor, label: AppConstants.notAvailableSeatText),
+                  ],
+                ),
+              ),
+            ),
+
+            SliverToBoxAdapter(child: AppTheme.verticalSpaceExtraLarge),
+          ],
+        ),
       ),
     );
   }

@@ -209,7 +209,7 @@ class SearchedMovieTile extends StatelessWidget {
 
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 Text(
                   movie?.title ?? '',
