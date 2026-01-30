@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class AppTheme {
   // ---------- Colors ---------
   static const Color transparentColor = Colors.transparent;
-  static const Color whiteColor = Color.fromRGBO(255, 255, 255, 1);
-  static const Color blackColor = Color.fromRGBO(0, 0, 0, 1);
+  static const Color whiteColor = .fromRGBO(255, 255, 255, 1);
+  static const Color blackColor = .fromRGBO(0, 0, 0, 1);
 
   static const Color redErrorColor = Color(0xFFFF0F0F);
 
@@ -21,7 +21,7 @@ class AppTheme {
   static const Color textFieldBgColor = Color(0xFFF2F2F6);
   static const Color hintTextColor = Color(0x4D2C434D);
   static const Color darkBlueTextColor = Color(0xFF202C43);
-  static const Color shimmerGrey = Color.fromRGBO(107, 107, 107, 1);
+  static const Color shimmerGrey = .fromRGBO(107, 107, 107, 1);
 
   static final LinearGradient blackAndWhiteTransparentGradient = LinearGradient(
     begin: Alignment.bottomCenter,

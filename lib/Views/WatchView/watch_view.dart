@@ -133,7 +133,7 @@ class WatchView extends ConsumerWidget {
                         padding: AppTheme.screenPadding,
                         child: (isSearching && !isSearchSubmitted)
                             ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: .start,
                                 children: [
                                   Text(
                                     AppConstants.topResultsText,

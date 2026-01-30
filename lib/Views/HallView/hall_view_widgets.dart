@@ -14,7 +14,7 @@ class SeatInfoChip extends StatelessWidget {
       mainAxisSize: .min,
       children: [
         Row(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: .min,
           children: [
             SvgPicture.asset(
               'assets/icons/seat_icon.svg',

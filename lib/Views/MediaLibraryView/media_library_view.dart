@@ -14,8 +14,8 @@ class MediaLibraryView extends StatelessWidget {
           child: Padding(
             padding: AppTheme.screenPadding,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: .center,
+              crossAxisAlignment: .center,
               children: [
                 CustomFilledTextButton(
                   buttonText: 'Search Movies',

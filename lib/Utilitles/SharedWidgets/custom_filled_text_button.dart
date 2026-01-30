@@ -60,8 +60,8 @@ class CustomFilledTextButton extends StatelessWidget {
           child:
               child ??
               Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: .min,
+                mainAxisAlignment: .center,
                 children: [
                   if (icon != null) ...[icon!, const SizedBox(width: 8)],
                   Flexible(

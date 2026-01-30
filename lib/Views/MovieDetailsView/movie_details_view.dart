@@ -122,7 +122,7 @@ class MovieDetailsView extends ConsumerWidget {
                     Padding(
                       padding: AppTheme.screenPadding,
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: .start,
                         children: [
                           Text(AppConstants.genresText, style: AppTheme.mediumTextStyleBold(textColor: AppTheme.darkBlueTextColor)),
                           Wrap(
@@ -189,7 +189,7 @@ class MovieDetailsView extends ConsumerWidget {
                         left: 20,
                         right: 20,
                         child: Column(
-                          mainAxisSize: MainAxisSize.min,
+                          mainAxisSize: .min,
                           children: [
                             Text(
                               '${AppConstants.inTheatersText} ${HelperFunctions.formatDateToMonthName(movieDetail.releaseDate)}',
@@ -259,7 +259,7 @@ class MovieDetailsView extends ConsumerWidget {
                   child: SingleChildScrollView(
                     padding: AppTheme.screenPadding,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: .start,
                       children: [
                         // Genres
                         Text(AppConstants.genresText, style: AppTheme.mediumTextStyleBold(textColor: AppTheme.darkBlueTextColor)),
